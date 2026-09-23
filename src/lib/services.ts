@@ -1,51 +1,40 @@
-import { createServerSupabase } from "@/lib/supabase-server";
-
+import {
+  createServerSupabase
+} from "@/lib/supabase-server";
 
 
 export async function getServices(){
 
+  const supabase =
+    createServerSupabase();
 
-const supabase = createServerSupabase();
 
-
-
-const {
-data,
-error
-}
-
-=
-await supabase
-.from("services")
-.select("*")
-.eq(
-"status",
-true
-)
-.order(
-"id",
-{
-ascending:true
-}
-);
+  const {
+    data,
+    error
+  } =
+  await supabase
+  .from("services")
+  .select("*")
+  .eq("status", true)
+  .order("id", {
+    ascending:true
+  });
 
 
 
-if(error){
+  if(error){
 
-console.error(
-"get services error:",
-error.message
-);
+    console.error(
+      "services error:",
+      error.message
+    );
 
+    throw error;
 
-throw error;
-
-}
-
+  }
 
 
-return data ?? [];
-
+  return data ?? [];
 
 }
