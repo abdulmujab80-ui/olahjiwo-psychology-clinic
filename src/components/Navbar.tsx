@@ -1,6 +1,5 @@
 "use client";
 
-
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,36 +17,41 @@ import { useAuth } from "@/context/AuthContext";
 
 
 
-
-export default function Navbar(){
-
-
-const [open,setOpen]=useState(false);
-
-const [profileOpen,setProfileOpen]=useState(false);
+export default function Navbar() {
 
 
-const {
-user,
-logout
-}=useAuth();
+  const [open, setOpen] = useState(false);
 
+  const [profileOpen, setProfileOpen] = useState(false);
+
+
+  const {
+    user,
+    logout
+  } = useAuth();
 
 
 
-
-const nama =
-user?.user_metadata?.nama_lengkap
-||
-user?.email?.split("@")[0]
-||
-"User";
-
+  const nama =
+    user?.user_metadata?.nama_lengkap
+    ||
+    user?.email?.split("@")[0]
+    ||
+    "User";
 
 
 
+  function closeMobile(){
 
-return (
+    setOpen(false);
+
+  }
+
+
+
+
+
+  return (
 
 
 <nav className="bg-white border-b">
@@ -67,11 +71,7 @@ justify-between
 
 
 
-
-
-
 {/* LOGO */}
-
 
 <Link
 href="/"
@@ -82,25 +82,16 @@ gap-3
 "
 >
 
-
 <Image
-
 src="/images/kamdes.png"
-
-alt="KampusDesa"
-
+alt="OlahJiwo"
 width={55}
-
 height={55}
-
 className="object-contain"
-
 />
 
 
-
 <div className="hidden sm:block">
-
 
 <h1
 className="
@@ -109,11 +100,8 @@ font-bold
 text-gray-900
 "
 >
-
 OlahJiwo
-
 </h1>
-
 
 
 <p
@@ -123,9 +111,7 @@ tracking-widest
 text-gray-500
 "
 >
-
 PSYCHOLOGY CENTER
-
 </p>
 
 
@@ -139,11 +125,7 @@ PSYCHOLOGY CENTER
 
 
 
-
-
-
 {/* DESKTOP MENU */}
-
 
 <div
 className="
@@ -198,9 +180,7 @@ Sponsor
 
 
 
-
-{/* USER */}
-
+{/* DESKTOP AUTH */}
 
 <div
 className="
@@ -213,10 +193,7 @@ items-center
 
 
 {
-user ?
-
-
-(
+user ? (
 
 
 <>
@@ -246,16 +223,12 @@ flex
 items-center
 justify-center
 font-bold
-text-lg
 "
 >
 
 {nama.charAt(0).toUpperCase()}
 
-
 </div>
-
-
 
 
 <span
@@ -270,11 +243,7 @@ text-gray-900
 </span>
 
 
-
-<ChevronDown
-size={18}
-className="text-gray-600"
-/>
+<ChevronDown size={18}/>
 
 
 </button>
@@ -282,16 +251,10 @@ className="text-gray-600"
 
 
 
-
-
-
-
 {
 profileOpen &&
 
-
 <div
-
 className="
 absolute
 right-0
@@ -301,18 +264,14 @@ bg-white
 rounded-2xl
 shadow-xl
 border
-border-gray-100
 p-3
 z-50
 "
-
 >
 
 
 <Link
-
 href="/member/profil"
-
 className="
 flex
 items-center
@@ -320,29 +279,20 @@ gap-3
 px-4
 py-3
 rounded-xl
-text-gray-900
 hover:bg-gray-100
 "
-
 >
-
 
 <User size={20}/>
 
-
 Profil Saya
-
 
 </Link>
 
 
 
-
-
 <Link
-
 href="/member/riwayat"
-
 className="
 flex
 items-center
@@ -350,41 +300,23 @@ gap-3
 px-4
 py-3
 rounded-xl
-text-gray-900
 hover:bg-gray-100
 "
-
 >
-
 
 <ClipboardList size={20}/>
 
-
 Riwayat Konsultasi
-
 
 </Link>
 
 
 
-
-
-
-<div
-className="
-border-t
-my-2
-"
-/>
-
-
-
+<div className="border-t my-2"/>
 
 
 <button
-
 onClick={logout}
-
 className="
 w-full
 flex
@@ -394,28 +326,21 @@ px-4
 py-3
 rounded-xl
 text-red-700
-font-semibold
 hover:bg-red-50
+font-semibold
 "
-
 >
-
 
 <LogOut size={20}/>
 
-
 Keluar
-
 
 </button>
 
 
-
 </div>
 
-
 }
-
 
 
 </>
@@ -423,15 +348,12 @@ Keluar
 
 )
 
-
-
 :
 
+(
 
 <Link
-
 href="/login"
-
 className="
 bg-red-700
 text-white
@@ -440,17 +362,15 @@ py-3
 rounded-full
 font-semibold
 "
-
 >
 
-Masuk/Daftar
+Masuk / Daftar
 
 </Link>
 
-
+)
 
 }
-
 
 
 </div>
@@ -461,9 +381,7 @@ Masuk/Daftar
 
 
 
-
 {/* MOBILE BUTTON */}
-
 
 <button
 
@@ -476,8 +394,8 @@ text-gray-900
 
 >
 
-
 {
+
 open ?
 
 <X size={30}/>
@@ -493,9 +411,8 @@ open ?
 
 
 
-
-
 </div>
+
 
 
 
@@ -507,16 +424,16 @@ open ?
 
 {/* MOBILE MENU */}
 
-
 {
+
 open &&
 
 
 <div
 className="
 md:hidden
-bg-white
 border-t
+bg-white
 "
 >
 
@@ -530,92 +447,94 @@ space-y-5
 >
 
 
-<Link
 
+<Link
 href="/"
-
+onClick={closeMobile}
 className="
 block
-text-gray-900
 font-medium
+text-gray-900
 "
-
 >
+
 Beranda
+
 </Link>
 
 
 
 <Link
-
 href="/program"
-
+onClick={closeMobile}
 className="
 block
-text-gray-900
 font-medium
+text-gray-900
 "
-
 >
+
 Program
+
 </Link>
 
 
 
 <Link
-
 href="/tim"
-
+onClick={closeMobile}
 className="
 block
-text-gray-900
 font-medium
+text-gray-900
 "
-
 >
+
 Tim
+
 </Link>
 
 
 
 <Link
-
 href="/sponsor"
-
+onClick={closeMobile}
 className="
 block
-text-gray-900
 font-medium
+text-gray-900
 "
-
 >
+
 Sponsor
+
 </Link>
+
+
 
 
 
 
 
 {
-user &&
+
+user ? (
+
 
 <>
 
 
 <Link
-
 href="/member/profil"
-
+onClick={closeMobile}
 className="
 block
 bg-gray-100
-text-gray-900
 text-center
 py-3
 rounded-xl
 font-medium
 "
-
 >
 
 Profil Saya
@@ -624,21 +543,17 @@ Profil Saya
 
 
 
-
 <Link
-
 href="/member/riwayat"
-
+onClick={closeMobile}
 className="
 block
 bg-gray-100
-text-gray-900
 text-center
 py-3
 rounded-xl
 font-medium
 "
-
 >
 
 Riwayat Konsultasi
@@ -648,10 +563,15 @@ Riwayat Konsultasi
 
 
 
-
 <button
 
-onClick={logout}
+onClick={()=>{
+
+logout();
+
+closeMobile();
+
+}}
 
 className="
 w-full
@@ -669,8 +589,40 @@ Keluar
 </button>
 
 
-
 </>
+
+
+)
+
+:
+
+(
+
+
+<Link
+
+href="/login"
+
+onClick={closeMobile}
+
+className="
+block
+bg-red-700
+text-white
+text-center
+py-3
+rounded-xl
+font-semibold
+"
+
+>
+
+Masuk / Daftar
+
+</Link>
+
+
+)
 
 }
 
@@ -689,7 +641,6 @@ Keluar
 </nav>
 
 
-);
-
+  );
 
 }
